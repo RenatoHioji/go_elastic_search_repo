@@ -6,18 +6,16 @@ import (
 	"log"
 	"strings"
 
+	"github.com/RenatoHioji/go_elastic_search_repo/internal/config"
 	"github.com/RenatoHioji/go_elastic_search_repo/internal/model"
 	"github.com/elastic/go-elasticsearch/v9"
 )
 
 func main() {
-	//es, _ := elasticsearch.NewDefaultClient()
-	cfg := elasticsearch.Config{
-		Addresses: []string{"http://localhost:9200"},
-		// Password: password...
-		// Username: username...
-	}
-	es, err := elasticsearch.NewClient(cfg)
+	cfg := config.LoadConfig()
+	es, err := elasticsearch.NewClient(elasticsearch.Config{
+		Addresses: []string{cfg.ESUrl},
+	})
 
 	if err != nil {
 		log.Fatalf("Error creating client: %s", err)
