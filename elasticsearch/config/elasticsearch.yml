@@ -1,0 +1,12 @@
+cluster.name: "go-elastic-cluster"
+
+discovery.type: single-node
+
+network.host: 0.0.0.0
+http.port: 9200
+transport.port: 9300
+
+path.data: /usr/share/elasticsearch/data
+path.logs: /usr/share/elasticsearch/logs
+
+xpack.security.enabled: false
