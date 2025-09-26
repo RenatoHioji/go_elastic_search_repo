@@ -6,7 +6,7 @@ import (
 	"log"
 	"strings"
 
-	"github.com/RenatoHioji/go_elastic_search_repo/model"
+	"github.com/RenatoHioji/go_elastic_search_repo/internal/model"
 	"github.com/elastic/go-elasticsearch/v9"
 )
 
@@ -17,7 +17,12 @@ func main() {
 		// Password: password...
 		// Username: username...
 	}
-	es, _ := elasticsearch.NewClient(cfg)
+	es, err := elasticsearch.NewClient(cfg)
+
+	if err != nil {
+		log.Fatalf("Error creating client: %s", err)
+	}
+
 	log.Println(es.Info())
 	document := model.Document{Name: "go-elastic-search"}
 
@@ -33,6 +38,5 @@ func main() {
 	es.Update("my_index", "id", strings.NewReader(`{doc: {language: "Go"}}`))
 	es.Delete("my_index", "id")
 
-	es.Indices.Delete([]string{"my_index"})
-
+	es.Indices.Delete([]string{"my_index"}) // Deleting index
 }
