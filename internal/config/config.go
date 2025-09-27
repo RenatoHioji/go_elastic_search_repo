@@ -8,12 +8,12 @@ import (
 )
 
 type Config struct {
-	ServerURL      string
+	ServerUrl      string
 	TrustedProxies string
 	ESUrl          string
 	ESUser         string
 	ESPass         string
-	Postgres       string
+	PGUrl          string
 	RedisUrl       string
 }
 
@@ -23,12 +23,12 @@ func LoadConfig() Config {
 		log.Println("No .env file found, using environment variables")
 	}
 	return Config{
-		ServerURL:      getEnv("ServerURL", "127.0.0.1:8080"),
+		ServerUrl:      getEnv("ServerUrl", "127.0.0.1:8080"),
 		TrustedProxies: getEnv("TrustedProxies", "127.0.0.1"),
 		ESUrl:          getEnv("ES_URL", "http://localhost:9200"),
 		ESUser:         getEnv("ES_USER", ""),
 		ESPass:         getEnv("ES_PASS", ""),
-		Postgres:       getEnv("POSTGRES_URL", "http://localhost:5432"),
+		PGUrl:          getEnv("POSTGRES_URL", "postgres://postgres:root@localhost/elasticsearch?sslmode=verify-full"),
 		RedisUrl:       getEnv("REDIS_URL", "localhost:6379"),
 	}
 }
