@@ -5,7 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func InitProductRoutes(r *gin.Engine) {
+func InitProductRoutes(r *gin.Engine, handlers *handlers.ProductHandler) {
 	group := r.Group("/products")
 	{
 		group.GET("/", handlers.GetProducts)
