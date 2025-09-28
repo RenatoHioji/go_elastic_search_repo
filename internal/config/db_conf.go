@@ -1,11 +1,9 @@
 package config
 
 import (
-	"log"
-
-	_ "github.com/lib/pq"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"log"
 )
 
 func InitDB(cfg Config) (*gorm.DB, error) {
