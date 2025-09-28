@@ -3,11 +3,25 @@ package handlers
 import (
 	"net/http"
 
+	"github.com/RenatoHioji/go_elastic_search_repo/internal/models"
+	"github.com/RenatoHioji/go_elastic_search_repo/internal/service"
 	"github.com/gin-gonic/gin"
 )
 
-func GetUsers(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{
-		"message": "Hello From users",
-	})
+type UserHandler struct {
+	service *service.UserService
+}
+
+func NewUserHandler(service *service.UserService) *UserHandler {
+	return &UserHandler{service: service}
+}
+
+func (h UserHandler) GetUsers(c *gin.Context) {
+	users, err := h.service.GetAllUsers()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, models.Response[[]models.User]{Data: users})
 }

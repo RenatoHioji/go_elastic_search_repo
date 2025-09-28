@@ -7,5 +7,6 @@ import (
 
 type App struct {
 	ProductHandler *handlers.ProductHandler
+	UserHandler    *handlers.UserHandler
 	Config         config.Config
 }

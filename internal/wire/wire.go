@@ -21,6 +21,9 @@ func InitializeApp() (*app.App, error) {
 		repository.NewProductRepository,
 		service.NewProductService,
 		handlers.NewProductHandler,
+		repository.NewUserRepository,
+		service.NewUserService,
+		handlers.NewUserHandler,
 		wire.Struct(new(app.App), "*"),
 	)
 	return &app.App{}, nil

@@ -28,8 +28,12 @@ func InitializeApp() (*app.App, error) {
 	productRepository := repository.NewProductRepository(db)
 	productService := service.NewProductService(productRepository)
 	productHandler := handlers.NewProductHandler(productService)
+	userRepository := repository.NewUserRepository(db)
+	userService := service.NewUserService(userRepository)
+	userHandler := handlers.NewUserHandler(userService)
 	appApp := &app.App{
 		ProductHandler: productHandler,
+		UserHandler:    userHandler,
 		Config:         configConfig,
 	}
 	return appApp, nil
