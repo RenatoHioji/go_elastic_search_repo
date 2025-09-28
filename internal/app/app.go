@@ -1,15 +1,11 @@
 package app
 
 import (
-	"database/sql"
-
-	"github.com/RenatoHioji/go_elastic_search_repo/internal/service"
+	"github.com/RenatoHioji/go_elastic_search_repo/internal/config"
+	"github.com/RenatoHioji/go_elastic_search_repo/internal/handlers"
 )
 
 type App struct {
-	user_service *service.UserService
-}
-
-func NewApp(db *sql.DB) {
-
+	ProductHandler *handlers.ProductHandler
+	Config         config.Config
 }
