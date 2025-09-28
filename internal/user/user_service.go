@@ -1,15 +1,14 @@
-package service
+package user
 
 import (
 	"github.com/RenatoHioji/go_elastic_search_repo/internal/models"
-	"github.com/RenatoHioji/go_elastic_search_repo/internal/repository"
 )
 
 type UserService struct {
-	repo *repository.UserRepository
+	repo *UserRepository
 }
 
-func NewUserService(repo *repository.UserRepository) *UserService {
+func NewUserService(repo *UserRepository) *UserService {
 	return &UserService{repo: repo}
 }
 

@@ -1,18 +1,17 @@
-package handlers
+package user
 
 import (
 	"net/http"
 
 	"github.com/RenatoHioji/go_elastic_search_repo/internal/models"
-	"github.com/RenatoHioji/go_elastic_search_repo/internal/service"
 	"github.com/gin-gonic/gin"
 )
 
 type UserHandler struct {
-	service *service.UserService
+	service *UserService
 }
 
-func NewUserHandler(service *service.UserService) *UserHandler {
+func NewUserHandler(service *UserService) *UserHandler {
 	return &UserHandler{service: service}
 }
 
