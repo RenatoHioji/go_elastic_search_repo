@@ -7,11 +7,12 @@ import (
 	_ "github.com/lib/pq"
 )
 
-func InitDB(cfg Config) *sql.DB {
+func InitDB(cfg Config) (*sql.DB, error) {
 	connStr := cfg.PGUrl
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
 		log.Fatal(err)
 	}
-	return db
+
+	return db, nil
 }
