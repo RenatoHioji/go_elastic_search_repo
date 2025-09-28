@@ -1,18 +1,17 @@
-package handlers
+package product
 
 import (
 	"net/http"
 
 	"github.com/RenatoHioji/go_elastic_search_repo/internal/models"
-	"github.com/RenatoHioji/go_elastic_search_repo/internal/service"
 	"github.com/gin-gonic/gin"
 )
 
 type ProductHandler struct {
-	service *service.ProductService
+	service *ProductService
 }
 
-func NewProductHandler(service *service.ProductService) *ProductHandler {
+func NewProductHandler(service *ProductService) *ProductHandler {
 	return &ProductHandler{service: service}
 }
 

@@ -1,15 +1,14 @@
-package service
+package product
 
 import (
 	"github.com/RenatoHioji/go_elastic_search_repo/internal/models"
-	"github.com/RenatoHioji/go_elastic_search_repo/internal/repository"
 )
 
 type ProductService struct {
-	repo *repository.ProductRepository
+	repo *ProductRepository
 }
 
-func NewProductService(repo *repository.ProductRepository) *ProductService {
+func NewProductService(repo *ProductRepository) *ProductService {
 	return &ProductService{repo: repo}
 }
 
