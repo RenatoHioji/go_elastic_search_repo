@@ -9,9 +9,8 @@ package wire
 import (
 	"github.com/RenatoHioji/go_elastic_search_repo/internal/app"
 	"github.com/RenatoHioji/go_elastic_search_repo/internal/config"
-	"github.com/RenatoHioji/go_elastic_search_repo/internal/handlers"
-	"github.com/RenatoHioji/go_elastic_search_repo/internal/repository"
-	"github.com/RenatoHioji/go_elastic_search_repo/internal/service"
+	"github.com/RenatoHioji/go_elastic_search_repo/internal/product"
+	"github.com/RenatoHioji/go_elastic_search_repo/internal/user"
 )
 
 // Injectors from wire.go:
@@ -25,12 +24,12 @@ func InitializeApp() (*app.App, error) {
 	if err != nil {
 		return nil, err
 	}
-	productRepository := repository.NewProductRepository(db)
-	productService := service.NewProductService(productRepository)
-	productHandler := handlers.NewProductHandler(productService)
-	userRepository := repository.NewUserRepository(db)
-	userService := service.NewUserService(userRepository)
-	userHandler := handlers.NewUserHandler(userService)
+	productRepository := product.NewProductRepository(db)
+	productService := product.NewProductService(productRepository)
+	productHandler := product.NewProductHandler(productService)
+	userRepository := user.NewUserRepository(db)
+	userService := user.NewUserService(userRepository)
+	userHandler := user.NewUserHandler(userService)
 	appApp := &app.App{
 		ProductHandler: productHandler,
 		UserHandler:    userHandler,
