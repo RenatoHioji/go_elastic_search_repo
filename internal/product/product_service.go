@@ -15,3 +15,7 @@ func NewProductService(repo *ProductRepository) *ProductService {
 func (s ProductService) GetAllProducts() ([]models.Product, error) {
 	return s.repo.GetAllProducts()
 }
+
+func (s ProductService) CreateProduct(product models.Product) (models.Product, error) {
+	return s.repo.CreateProduct(product)
+}

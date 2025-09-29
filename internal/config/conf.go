@@ -15,6 +15,7 @@ type Config struct {
 	ESPass         string
 	PGUrl          string
 	RedisUrl       string
+	KafkaUrl       string
 }
 
 func LoadConfig() (Config, error) {
@@ -30,6 +31,7 @@ func LoadConfig() (Config, error) {
 		ESPass:         getEnv("ES_PASS", ""),
 		PGUrl:          getEnv("POSTGRES_URL", "postgres://postgres:root@localhost/elasticsearch?sslmode=disable"),
 		RedisUrl:       getEnv("REDIS_URL", "localhost:6379"),
+		KafkaUrl:       getEnv("KAFKA_URL", "localhost:9092"),
 	}, nil
 }
 

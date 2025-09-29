@@ -1,6 +1,8 @@
 package product
 
 import (
+	"log"
+
 	"github.com/RenatoHioji/go_elastic_search_repo/internal/models"
 	"gorm.io/gorm"
 )
@@ -19,4 +21,12 @@ func (r ProductRepository) GetAllProducts() (products []models.Product, err erro
 	}
 
 	return products, nil
+}
+
+func (r ProductRepository) CreateProduct(product models.Product) (prod models.Product, err error) {
+	if err := r.db.Create(&product).Error; err != nil {
+		log.Fatal(err)
+	}
+
+	return product, nil
 }

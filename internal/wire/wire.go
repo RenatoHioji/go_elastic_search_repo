@@ -18,6 +18,7 @@ func InitializeApp() (*app.App, error) {
 		config.LoadConfig,
 		config.InitES,
 		config.InitDB,
+		config.InitKafka,
 		user.UserSet,
 		product.ProductSet,
 		search.SearchSet,
