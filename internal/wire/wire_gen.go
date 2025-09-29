@@ -10,6 +10,7 @@ import (
 	"github.com/RenatoHioji/go_elastic_search_repo/internal/app"
 	"github.com/RenatoHioji/go_elastic_search_repo/internal/config"
 	"github.com/RenatoHioji/go_elastic_search_repo/internal/product"
+	"github.com/RenatoHioji/go_elastic_search_repo/internal/search"
 	"github.com/RenatoHioji/go_elastic_search_repo/internal/user"
 )
 
@@ -30,9 +31,17 @@ func InitializeApp() (*app.App, error) {
 	userRepository := user.NewUserRepository(db)
 	userService := user.NewUserService(userRepository)
 	userHandler := user.NewUserHandler(userService)
+	client, err := config.InitES(configConfig)
+	if err != nil {
+		return nil, err
+	}
+	searchRepository := search.NewSearchRepository(client)
+	searchService := search.NewSearchService(searchRepository)
+	searchHandler := search.NewSearchHandler(searchService)
 	appApp := &app.App{
 		ProductHandler: productHandler,
 		UserHandler:    userHandler,
+		SearchHandler:  searchHandler,
 		Config:         configConfig,
 	}
 	return appApp, nil
