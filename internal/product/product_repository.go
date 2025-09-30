@@ -23,7 +23,7 @@ func (r ProductRepository) GetAllProducts() (products []models.Product, err erro
 	return products, nil
 }
 
-func (r ProductRepository) CreateProduct(product models.Product) (prod models.Product, err error) {
+func (r ProductRepository) CreateProduct(product *models.Product) (prod *models.Product, err error) {
 	if err := r.db.Create(&product).Error; err != nil {
 		log.Fatal(err)
 	}

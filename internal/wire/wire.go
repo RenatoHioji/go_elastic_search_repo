@@ -6,6 +6,7 @@ package wire
 import (
 	"github.com/RenatoHioji/go_elastic_search_repo/internal/app"
 	"github.com/RenatoHioji/go_elastic_search_repo/internal/config"
+	"github.com/RenatoHioji/go_elastic_search_repo/internal/messaging"
 	"github.com/RenatoHioji/go_elastic_search_repo/internal/product"
 	"github.com/RenatoHioji/go_elastic_search_repo/internal/search"
 	"github.com/RenatoHioji/go_elastic_search_repo/internal/user"
@@ -19,9 +20,10 @@ func InitializeApp() (*app.App, error) {
 		config.InitES,
 		config.InitDB,
 		config.InitKafka,
+		messaging.NewKafkaProducer,
 		user.UserSet,
-		product.ProductSet,
 		search.SearchSet,
+		product.ProductSet,
 		wire.Struct(new(app.App), "*"),
 	)
 	return &app.App{}, nil

@@ -9,6 +9,7 @@ package wire
 import (
 	"github.com/RenatoHioji/go_elastic_search_repo/internal/app"
 	"github.com/RenatoHioji/go_elastic_search_repo/internal/config"
+	"github.com/RenatoHioji/go_elastic_search_repo/internal/messaging"
 	"github.com/RenatoHioji/go_elastic_search_repo/internal/product"
 	"github.com/RenatoHioji/go_elastic_search_repo/internal/search"
 	"github.com/RenatoHioji/go_elastic_search_repo/internal/user"
@@ -26,16 +27,21 @@ func InitializeApp() (*app.App, error) {
 		return nil, err
 	}
 	productRepository := product.NewProductRepository(db)
-	productService := product.NewProductService(productRepository)
+	client, err := config.InitKafka(configConfig)
+	if err != nil {
+		return nil, err
+	}
+	kafkaProducer := messaging.NewKafkaProducer(client)
+	productService := product.NewProductService(productRepository, kafkaProducer)
 	productHandler := product.NewProductHandler(productService)
 	userRepository := user.NewUserRepository(db)
 	userService := user.NewUserService(userRepository)
 	userHandler := user.NewUserHandler(userService)
-	client, err := config.InitES(configConfig)
+	elasticsearchClient, err := config.InitES(configConfig)
 	if err != nil {
 		return nil, err
 	}
-	searchRepository := search.NewSearchRepository(client)
+	searchRepository := search.NewSearchRepository(elasticsearchClient)
 	searchService := search.NewSearchService(searchRepository)
 	searchHandler := search.NewSearchHandler(searchService)
 	appApp := &app.App{

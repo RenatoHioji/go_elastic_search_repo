@@ -19,7 +19,7 @@ func NewKafkaProducer(client *kgo.Client) *KafkaProducer {
 	return &KafkaProducer{client: client}
 }
 
-func (k KafkaProducer) SendProduct(product models.Product) {
+func (k KafkaProducer) SendProduct(product *models.Product) {
 	v, err := json.Marshal(product)
 
 	if err != nil {
@@ -38,7 +38,7 @@ func (k KafkaProducer) SendProduct(product models.Product) {
 		if err != nil {
 			fmt.Printf("record had a produce error: %v\n", err)
 		} else {
-			fmt.Println("✅ product %s was submitted to kafka sucessfully", product.Name)
+			fmt.Printf("product %s was submitted to kafka sucessfully\n", product.Name)
 		}
 	})
 }

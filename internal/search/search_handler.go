@@ -22,5 +22,5 @@ func (h SearchHandler) SearchProduct(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, models.Response[[]models.Product]{Data: search})
+	c.JSON(http.StatusOK, models.ResponseList[[]models.Product]{Data: search})
 }

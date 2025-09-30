@@ -22,5 +22,5 @@ func (h UserHandler) GetUsers(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, models.Response[[]models.User]{Data: users})
+	c.JSON(http.StatusOK, models.ResponseList[[]models.User]{Data: users})
 }
