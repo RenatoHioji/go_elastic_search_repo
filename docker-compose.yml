@@ -11,39 +11,6 @@ services:
     volumes:
       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
   redpanda:
-    image: redpandadata/redpanda:latest
-    container_name: redpanda
-    environment:
-      - KAFKA_PRODUCER_MAX_REQUEST_SIZE=200000000
-    command:
-      - redpanda start
-      - --smp 1
-      - --overprovisioned
-      - --node-id 0
-      - --check=false
-      - --kafka-addr 0.0.0.0:9092
-      - --advertise-kafka-addr redpanda:9092
-      - --pandaproxy-addr 0.0.0.0:8082
-      - --advertise-pandaproxy-addr redpanda:8082
-    ports:
-      - "9092:9092"   # Kafka API
-      - "9644:9644"   # Admin API
-      - "8082:8082"   # Pandaproxy (optional)
-    networks:
-      - redpanda_net
-
-  redpanda-console:
-    image: redpandadata/console:latest
-    container_name: redpanda-console
-    ports:
-      - "8090:8080"
-    environment:
-      - KAFKA_BROKERS=redpanda:9092
-    depends_on:
-      - redpanda
-    networks:
-      - redpanda_net
-  redpanda:
     image: redpandadata/redpanda
     container_name: source
     ports:
@@ -57,7 +24,7 @@ services:
       --set "rpk.additional_start_flags=[--reactor-backend=epoll]"
       --set redpanda.auto_create_topics_enabled=true
       --kafka-addr 0.0.0.0:9092
-      --advertise-kafka-addr host.docker.internal:9092
+      --advertise-kafka-addr localhost:9092
       --schema-registry-addr 0.0.0.0:8081
     restart: unless-stopped
   postgres:
