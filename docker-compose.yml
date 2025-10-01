@@ -13,6 +13,8 @@ services:
   redpanda:
     image: redpandadata/redpanda:latest
     container_name: redpanda
+    environment:
+      - KAFKA_PRODUCER_MAX_REQUEST_SIZE=200000000
     command:
       - redpanda start
       - --smp 1
