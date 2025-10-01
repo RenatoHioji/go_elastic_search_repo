@@ -12,7 +12,7 @@ services:
       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
   redpanda:
     image: redpandadata/redpanda
-    container_name: source
+    container_name: redpanda
     ports:
       - "8081:8081"
       - "9092:9092"
@@ -41,7 +41,6 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
     networks:
       - app_net
-
 
 networks:
   redpanda_net:

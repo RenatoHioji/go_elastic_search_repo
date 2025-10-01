@@ -21,7 +21,7 @@ func main() {
 	}
 	defer client.Close()
 
-	topic := "foobar"
+	topic := "products"
 	_, err = kadm.NewClient(client).CreateTopic(context.Background(), 1, -1, nil, topic)
 	if err != nil {
 		panic(err)
