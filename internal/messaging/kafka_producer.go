@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"log"
 	"time"
 
 	"github.com/RenatoHioji/go_elastic_search_repo/internal/models"
@@ -19,26 +18,24 @@ func NewKafkaProducer(client *kgo.Client) *KafkaProducer {
 	return &KafkaProducer{client: client}
 }
 
-func (k KafkaProducer) SendProduct(product *models.Product) {
+func (k *KafkaProducer) SendProduct(product *models.Product) {
 	v, err := json.Marshal(product)
-
 	if err != nil {
-		log.Fatal(err)
+		fmt.Printf("failed to marshal product: %v\n", err)
+		return
 	}
+
 	record := &kgo.Record{
 		Topic:     "products",
 		Value:     v,
 		Timestamp: time.Now(),
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	defer cancel()
-
-	k.client.Produce(ctx, record, func(_ *kgo.Record, err error) {
+	k.client.Produce(context.Background(), record, func(_ *kgo.Record, err error) {
 		if err != nil {
 			fmt.Printf("record had a produce error: %v\n", err)
 		} else {
-			fmt.Printf("product %s was submitted to kafka sucessfully\n", product.Name)
+			fmt.Printf("product %s was submitted to Kafka successfully\n", product.Name)
 		}
 	})
 }
