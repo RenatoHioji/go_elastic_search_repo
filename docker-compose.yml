@@ -1,6 +1,6 @@
 services:
   redpanda:
-    image: docker.redpanda.com/redpandadata/redpanda:v24.1.5
+    image: redpandadata/redpanda:latest
     container_name: redpanda
     command:
       - redpanda start
@@ -18,7 +18,7 @@ services:
       - "9644:9644"     # Admin API
 
   redpanda-console:
-    image: docker.redpanda.com/redpandadata/console:v2.6.1
+    image: redpandadata/console:latest
     container_name: redpanda-console
     ports:
       - "8090:8080"   # UI do console
