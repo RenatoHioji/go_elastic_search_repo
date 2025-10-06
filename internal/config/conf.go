@@ -31,7 +31,7 @@ func LoadConfig() (Config, error) {
 		ESPass:         getEnv("ES_PASS", ""),
 		PGUrl:          getEnv("POSTGRES_URL", "postgres://postgres:root@localhost/elasticsearch?sslmode=disable"),
 		RedisUrl:       getEnv("REDIS_URL", "localhost:6379"),
-		KafkaUrl:       getEnv("KAFKA_URL", "localhost:9092"),
+		KafkaUrl:       getEnv("KAFKA_URL", "localhost:19092"),
 	}, nil
 }
 
